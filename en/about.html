@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Founder — Wavemaker Capital</title>
+    <meta name="description" content="Founding Partner of Wavemaker Capital: hard-tech fundraising partner, founder of the Wavemaker tech media matrix, author, CFA charterholder.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wm-bg': '#FAF9F6',
+                        'wm-surface': '#FFFFFF',
+                        'wm-ink': '#1D1B18',
+                        'wm-muted': '#6E675E',
+                        'wm-line': '#E7E2D9',
+                        'wm-accent': '#A6442E',
+                        'wm-gold': '#A88A5B'
+                    },
+                    fontFamily: {
+                        serif: ['Noto Serif SC', 'Songti SC', 'serif'],
+                        sans: ['Inter', 'PingFang SC', 'system-ui', 'sans-serif'],
+                        mono: ['IBM Plex Mono', 'monospace']
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Design system -->
+    <link rel="stylesheet" href="../assets/style.css">
+
+    <!-- EN-only typography fit: English nav labels are longer than Chinese;
+         tighten nav spacing on medium screens. Scoped to EN pages, style.css untouched. -->
+    <style>
+        @media (min-width: 768px) and (max-width: 1080px) {
+            #site-nav .md\:flex { gap: 1.25rem !important; }
+            #site-nav .nav-link { font-size: 0.8125rem; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Nav -->
+    <nav id="site-nav" class="fixed w-full z-50 top-0"></nav>
+
+    <!-- Founder page body -->
+    <main class="pt-36 pb-24 md:pt-44 md:pb-32">
+        <div class="max-w-6xl mx-auto px-6">
+            <div id="founder-content"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="site-footer" class="hairline-t" style="background:rgba(255,255,255,0.6)"></footer>
+
+    <!-- Data & logic: EN pages load i18n-en.js ONLY (WM_DATA_EN overrides; data.js is not loaded) -->
+    <script src="../assets/i18n-en.js"></script>
+    <script src="../assets/main.js"></script>
+</body>
+</html>

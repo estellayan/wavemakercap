@@ -1,0 +1,416 @@
+/* ============================================================
+   造浪资本 Wavemaker Capital — 设计系统（两语共用）
+   暖纸白底 / 墨色 / 朱砂红 #A6442E / 古铜金 #A88A5B
+   中式留白 + 印章元素 + 发丝线 + 浅色玻璃拟态
+   ============================================================ */
+
+:root {
+    --wm-bg: #FAF9F6;
+    --wm-surface: #FFFFFF;
+    --wm-ink: #1D1B18;
+    --wm-muted: #6E675E;
+    --wm-line: #E7E2D9;
+    --wm-accent: #A6442E;
+    --wm-accent-soft: rgba(166, 68, 46, 0.08);
+    --wm-gold: #A88A5B;
+    --wm-gold-soft: rgba(168, 138, 91, 0.12);
+    --wm-serif: 'Noto Serif SC', 'Songti SC', serif;
+    --wm-sans: 'Inter', 'PingFang SC', system-ui, sans-serif;
+    --wm-mono: 'IBM Plex Mono', monospace;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--wm-bg);
+    color: var(--wm-ink);
+    font-family: var(--wm-sans);
+    /* 极浅几何网格 / 宣纸纹理（透明度 <5%） */
+    background-image:
+        linear-gradient(rgba(29, 27, 24, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(29, 27, 24, 0.025) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 字体工具 ---------- */
+.font-serif-wm { font-family: var(--wm-serif); }
+.font-mono-wm  { font-family: var(--wm-mono); }
+
+/* ---------- 朱砂红印章方块 ---------- */
+.seal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--wm-accent);
+    color: #FDFBF7;
+    font-family: var(--wm-serif);
+    font-weight: 700;
+    border-radius: 3px;
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(166, 68, 46, 0.35);
+    user-select: none;
+}
+.seal-lg { width: 44px; height: 44px; font-size: 22px; }
+.seal-md { width: 30px; height: 30px; font-size: 15px; }
+.seal-sm { width: 22px; height: 22px; font-size: 11px; border-radius: 2px; }
+
+/* 印章角标（用于照片/卡片角落） */
+.seal-corner {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    z-index: 10;
+    opacity: 0.95;
+}
+
+/* ---------- 发丝线 ---------- */
+.hairline       { border-color: var(--wm-line) !important; }
+.hairline-t     { border-top: 1px solid var(--wm-line); }
+.hairline-b     { border-bottom: 1px solid var(--wm-line); }
+
+/* ---------- 导航：浅色玻璃拟态 ---------- */
+#site-nav {
+    transition: background-color .35s ease, box-shadow .35s ease, border-color .35s ease;
+    border-bottom: 1px solid transparent;
+}
+#site-nav.glass {
+    background: rgba(250, 249, 246, 0.82);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom: 1px solid var(--wm-line);
+    box-shadow: 0 4px 24px rgba(29, 27, 24, 0.05);
+}
+.nav-link {
+    position: relative;
+    color: var(--wm-muted);
+    transition: color .25s ease;
+}
+.nav-link:hover, .nav-link.active { color: var(--wm-accent); }
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 0; height: 1px;
+    background: var(--wm-accent);
+    transition: width .25s ease;
+}
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+/* ---------- 按钮 ---------- */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--wm-accent);
+    color: #FDFBF7;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 12px 30px;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+    box-shadow: 0 4px 16px rgba(166, 68, 46, 0.22);
+}
+.btn-primary:hover {
+    background: #8F3A26;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(166, 68, 46, 0.30);
+}
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--wm-ink);
+    color: var(--wm-ink);
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 12px 30px;
+    transition: all .25s ease;
+    background: transparent;
+}
+.btn-outline:hover {
+    border-color: var(--wm-accent);
+    color: var(--wm-accent);
+    transform: translateY(-2px);
+}
+
+/* ---------- 竖排小字点缀 ---------- */
+.vertical-text {
+    writing-mode: vertical-rl;
+    letter-spacing: 0.35em;
+    font-family: var(--wm-mono);
+    font-size: 11px;
+    color: var(--wm-gold);
+    user-select: none;
+}
+
+/* ---------- 区块编号 ---------- */
+.section-no {
+    font-family: var(--wm-mono);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: var(--wm-gold);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.section-no::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: var(--wm-gold);
+    opacity: 0.5;
+}
+
+/* ---------- 统计大数字 ---------- */
+.stat-value {
+    font-family: var(--wm-serif);
+    font-weight: 700;
+    color: var(--wm-gold);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 卡片 ---------- */
+.wm-card {
+    background: var(--wm-surface);
+    border: 1px solid var(--wm-line);
+    border-radius: 14px;
+    transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.wm-card:hover {
+    border-color: rgba(166, 68, 46, 0.45);
+    box-shadow: 0 12px 32px rgba(29, 27, 24, 0.07);
+    transform: translateY(-4px);
+}
+
+/* ---------- 标签 ---------- */
+.tag {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--wm-muted);
+    background: rgba(29, 27, 24, 0.04);
+    border: 1px solid var(--wm-line);
+    border-radius: 999px;
+    padding: 3px 10px;
+}
+.round-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--wm-accent);
+    background: var(--wm-accent-soft);
+    border: 1px solid rgba(166, 68, 46, 0.25);
+    border-radius: 6px;
+    padding: 3px 9px;
+}
+
+/* ---------- 案例筛选按钮 ---------- */
+.btn-filter {
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--wm-muted);
+    border: 1px solid var(--wm-line);
+    background: var(--wm-surface);
+    transition: all .25s ease;
+    cursor: pointer;
+}
+.btn-filter:hover {
+    border-color: var(--wm-accent);
+    color: var(--wm-accent);
+}
+.btn-filter.active {
+    background: var(--wm-accent);
+    border-color: var(--wm-accent);
+    color: #FDFBF7;
+    box-shadow: 0 4px 14px rgba(166, 68, 46, 0.25);
+}
+
+/* ---------- 今年项目占位槽 ---------- */
+.slot {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--wm-line);
+    background: var(--wm-surface);
+    box-shadow: 0 16px 48px rgba(29, 27, 24, 0.08);
+}
+.slot-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+.slot-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    transition: transform .6s ease;
+}
+.slot:hover .slot-media img { transform: scale(1.03); }
+.slot-media img.img-error { display: none; }
+/* 优雅占位图案：宣纸纹 + 波浪细线 + 印章 */
+.slot-placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background:
+        radial-gradient(ellipse at 30% 20%, rgba(168, 138, 91, 0.10), transparent 55%),
+        radial-gradient(ellipse at 75% 80%, rgba(166, 68, 46, 0.07), transparent 55%),
+        repeating-linear-gradient(-8deg, transparent 0 22px, rgba(29, 27, 24, 0.03) 22px 23px),
+        var(--wm-bg);
+}
+.slot-placeholder .ph-text {
+    font-family: var(--wm-mono);
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: var(--wm-muted);
+}
+
+/* ---------- 媒体背书走马灯 ---------- */
+.marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: wm-marquee 36s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes wm-marquee {
+    to { transform: translateX(-50%); }
+}
+.marquee-item {
+    flex-shrink: 0;
+    font-family: var(--wm-serif);
+    font-size: 15px;
+    color: var(--wm-muted);
+    border: 1px solid var(--wm-line);
+    background: var(--wm-surface);
+    border-radius: 999px;
+    padding: 10px 24px;
+    white-space: nowrap;
+}
+
+/* ---------- 合作机构徽章 ---------- */
+.partner-badge {
+    font-family: var(--wm-serif);
+    font-size: 15px;
+    color: var(--wm-muted);
+    border: 1px solid var(--wm-line);
+    background: var(--wm-surface);
+    border-radius: 8px;
+    padding: 12px 22px;
+    cursor: default;
+    user-select: none;
+    transition: all .25s ease;
+}
+.partner-badge:hover {
+    border-color: rgba(166, 68, 46, 0.45);
+    color: var(--wm-accent);
+    transform: translateY(-2px);
+}
+
+/* ---------- 弹窗（浅色） ---------- */
+#project-modal .modal-panel {
+    background: var(--wm-surface);
+    border: 1px solid var(--wm-line);
+    box-shadow: 0 32px 80px rgba(29, 27, 24, 0.22);
+}
+
+/* ---------- 图表面板 ---------- */
+.chart-panel {
+    background: var(--wm-surface);
+    border: 1px solid var(--wm-line);
+    border-radius: 16px;
+    box-shadow: 0 12px 36px rgba(29, 27, 24, 0.06);
+}
+
+/* ---------- 创始人照片框 ---------- */
+.founder-frame {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--wm-line);
+    box-shadow: 0 20px 60px rgba(29, 27, 24, 0.12);
+}
+.founder-frame::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(168, 138, 91, 0.4);
+    border-radius: 10px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* ---------- 履历条目 ---------- */
+.bio-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+.bio-no {
+    flex-shrink: 0;
+    font-family: var(--wm-mono);
+    font-size: 12px;
+    color: var(--wm-gold);
+    border: 1px solid rgba(168, 138, 91, 0.45);
+    border-radius: 999px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+}
+
+/* ---------- 页脚 ---------- */
+.footer-link {
+    color: var(--wm-muted);
+    transition: color .25s ease;
+}
+.footer-link:hover { color: var(--wm-accent); }
+
+/* ---------- 选中态 ---------- */
+::selection {
+    background: rgba(166, 68, 46, 0.18);
+    color: var(--wm-ink);
+}
+
+/* ---------- 滚动条 ---------- */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--wm-bg); }
+::-webkit-scrollbar-thumb {
+    background: #D8D1C4;
+    border-radius: 6px;
+    border: 2px solid var(--wm-bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--wm-gold); }
+
+/* ---------- 关于我照片缺失兜底 ---------- */
+.founder-frame.no-photo {
+    aspect-ratio: 3 / 4;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(168, 138, 91, 0.10), transparent 60%),
+        linear-gradient(160deg, #F3EFE7 0%, #EAE4D8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

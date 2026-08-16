@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wavemaker Capital — Empowering Hard Tech, Shaping the Future</title>
+    <meta name="description" content="Wavemaker Capital: focused on robotics, smart hardware, semiconductor M&A and healthcare — connecting exceptional founders with first-tier capital.">
+
+    <!-- Fonts: Noto Serif SC / Inter / IBM Plex Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wm-bg': '#FAF9F6',
+                        'wm-surface': '#FFFFFF',
+                        'wm-ink': '#1D1B18',
+                        'wm-muted': '#6E675E',
+                        'wm-line': '#E7E2D9',
+                        'wm-accent': '#A6442E',
+                        'wm-gold': '#A88A5B'
+                    },
+                    fontFamily: {
+                        serif: ['Noto Serif SC', 'Songti SC', 'serif'],
+                        sans: ['Inter', 'PingFang SC', 'system-ui', 'sans-serif'],
+                        mono: ['IBM Plex Mono', 'monospace']
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Design system -->
+    <link rel="stylesheet" href="../assets/style.css">
+
+    <!-- EN-only typography fit: English nav labels are longer than Chinese;
+         tighten nav spacing on medium screens. Scoped to EN pages, style.css untouched. -->
+    <style>
+        @media (min-width: 768px) and (max-width: 1080px) {
+            #site-nav .md\:flex { gap: 1.25rem !important; }
+            #site-nav .nav-link { font-size: 0.8125rem; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 1. Nav (light glassmorphism, scroll-triggered) -->
+    <nav id="site-nav" class="fixed w-full z-50 top-0"></nav>
+
+    <!-- 2. Hero -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 pb-16">
+        <!-- Vertical side text accents -->
+        <div id="hero-vertical" class="vertical-text hidden lg:block absolute right-10 top-1/2 -translate-y-1/2"></div>
+        <div class="vertical-text hidden lg:block absolute left-10 top-1/2 -translate-y-1/2" style="color:var(--wm-line)">WAVEMAKER · CAPITAL · EST. SHENZHEN</div>
+
+        <div id="hero-content" class="relative z-10 text-center px-6 max-w-5xl mx-auto"></div>
+    </header>
+
+    <!-- 3. About Wavemaker Capital -->
+    <section id="about" class="py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div id="about-content"></div>
+        </div>
+    </section>
+
+    <!-- 4. 2025 Deals (highest visual weight) -->
+    <section id="this-year" class="py-28 md:py-40 hairline-t" style="background:linear-gradient(180deg, rgba(168,138,91,0.05), rgba(250,249,246,0) 40%)">
+        <div class="max-w-7xl mx-auto px-6">
+            <div id="this-year-content"></div>
+        </div>
+    </section>
+
+    <!-- 5. Track Record (17 deals + filters + modal + doughnut chart) -->
+    <section id="cases" class="py-24 md:py-32 hairline-t">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12 reveal" id="cases-header"></div>
+
+            <div class="grid lg:grid-cols-4 gap-10 items-start">
+                <div class="lg:col-span-3">
+                    <div id="filter-container" class="flex flex-wrap justify-center lg:justify-start gap-3 mb-10"></div>
+                    <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+                </div>
+                <div class="chart-panel p-6 reveal lg:sticky lg:top-28">
+                    <h3 id="deal-chart-title" class="font-serif-wm text-base font-semibold mb-5 text-center" style="color:var(--wm-ink)"></h3>
+                    <div class="h-72 w-full">
+                        <canvas id="dealChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Influence -->
+    <section id="influence" class="py-24 md:py-32 hairline-t">
+        <div class="max-w-7xl mx-auto px-6">
+            <div id="influence-content"></div>
+        </div>
+    </section>
+
+    <!-- 7. Partners -->
+    <section id="partners" class="py-24 md:py-28 hairline-t">
+        <div class="max-w-7xl mx-auto px-6">
+            <div id="partners-content"></div>
+        </div>
+    </section>
+
+    <!-- 8. Footer -->
+    <footer id="site-footer" class="hairline-t" style="background:rgba(255,255,255,0.6)"></footer>
+
+    <!-- Deal detail modal -->
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+        <div class="absolute inset-0" id="modal-backdrop" style="background:rgba(29,27,24,0.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)"></div>
+        <div class="relative min-h-screen flex items-center justify-center p-4" id="modal-wrap">
+            <div class="modal-panel w-full max-w-2xl rounded-2xl max-h-[85vh] overflow-y-auto" id="modal-content"></div>
+        </div>
+    </div>
+
+    <!-- Data & logic: EN pages load i18n-en.js ONLY (WM_DATA_EN overrides; data.js is not loaded) -->
+    <script src="../assets/i18n-en.js"></script>
+    <script src="../assets/main.js"></script>
+</body>
+</html>
